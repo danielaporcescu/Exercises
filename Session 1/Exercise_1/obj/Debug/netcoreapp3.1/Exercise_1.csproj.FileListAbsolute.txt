@@ -1,0 +1,4 @@
+C:\1. Documente\VIA\Semestrul_5\SWA_1\Exercises\Exercise_1\obj\Debug\netcoreapp3.1\Exercise_1.csprojAssemblyReference.cache
+C:\1. Documente\VIA\Semestrul_5\SWA_1\Exercises\Exercise_1\obj\Debug\netcoreapp3.1\Exercise_1.csproj.CoreCompileInputs.cache
+C:\1. Documente\VIA\Semestrul_5\SWA_1\Exercises\Exercise_1\obj\Debug\netcoreapp3.1\Exercise_1.AssemblyInfoInputs.cache
+C:\1. Documente\VIA\Semestrul_5\SWA_1\Exercises\Exercise_1\obj\Debug\netcoreapp3.1\Exercise_1.AssemblyInfo.cs
