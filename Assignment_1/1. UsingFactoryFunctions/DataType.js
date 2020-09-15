@@ -1,9 +1,9 @@
-function DataType(type, unit) {
-  const getType = () => type;
-  const geyUnit = () => unit;
-  const toString = () => `type = ${type}, unit = ${unit}`;
+function DataType(options) {
+  
+  const getType = () => options.type;
+  const getUnit = () => options.unit;
 
-  return { getType, geyUnit, toString };
+  return { getType, getUnit};
 }
 
 export default DataType;

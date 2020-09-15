@@ -1,9 +1,8 @@
-function Event(time, place) {
-  const getTime = () => time;
-  const getPlace = () => place;
-  const toString = () => `time = ${time}, place = ${place}`;
+function Event(options) {
+  const getTime = () => options.time;
+  const getPlace = () => options.place;
 
-  return { getTime, getPlace, toString };
+  return { getTime, getPlace };
 }
 
 export default Event;
