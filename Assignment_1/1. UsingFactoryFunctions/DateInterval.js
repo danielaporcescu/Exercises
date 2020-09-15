@@ -1,7 +1,9 @@
 function DateInterval(options) {
-  const dateFrom = () => options.from;
-  const dateTo = () => options.to;
+  const dateFrom = () => options.startDate;
+  const dateTo = () => options.endDate;
   const contains = (date) => date > dateFrom && date < dateTo;
 
   return {dateFrom, dateTo, contains}
 }
+
+export default DateInterval;
