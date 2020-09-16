@@ -1,14 +1,12 @@
 import WeatherData from "../WeatherData.js";
 
-
 function CloudCoverage(options) {
-  const setCloudCoverage = (newCoverage) => (options.coverage = newCoverage);
-  const getCloudCoverage = () => options.coverage;
-  
-  return { 
-    setCloudCoverage, 
-    getCloudCoverage,
-    ...WeatherData(options)
+  const setCloudCoverage = (newValue) => (options.value = newValue);
+  const getCloudCoverage = () => options.value;
+
+  return {
+    setCloudCoverage,
+    getCloudCoverage
   };
 }
 
