@@ -1,1 +1,3 @@
-# SinglePageWebApplications_Exercises
+# Single Page Web Applications
+
+Exercises and course assignments
