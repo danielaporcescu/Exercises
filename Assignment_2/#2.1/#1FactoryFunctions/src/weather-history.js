@@ -1,30 +1,17 @@
 import { WeatherDataTypes, Colors } from "./enums.js";
 import { styledLog } from "../../helpers/colored-logs.helper.js";
 
-const WeatherHistory = (options) => {
-  const getCurrentPlace = () => options.place;
+const WeatherHistory = (data) => {
+  const forPlace = (place) => data.filter((x) => x.getPlace() == place);
 
-  const setCurrentPlace = (newCurrentPlace) =>
-    (options.place = newCurrentPlace);
+  const forType = (type) => data.filter((x) => x.getType() == type);
 
-  const clearCurrentPlace = () => (options.place = undefined);
-
-  const getCurrentType = () => options.type;
-
-  const setCurrentType = (newCurrentType) => (options.type = newCurrentType);
-
-  const clearCurrentType = () => (options.type = undefined);
-
-  const getCurrentDateInterval = () => options.dateInterval;
-
-  const setCurrentDateInterval = (newCurrentDateInterval) =>
-    (options.dateInterval = newCurrentDateInterval);
-
-  const clearCurrentDateInterval = () => (options.dateInterval = undefined);
+  const forPeriod = (startDate, endDate) =>
+    data.filter((x) => x.getTime() >= startDate && x.getTime() <= endDate);
 
   const convertToUsUnits = () => {
     styledLog(Colors.YELLOW, "\nConverting to US units");
-    options.data.forEach((x) => {
+    data.map((x) => {
       switch (x.getType()) {
         case WeatherDataTypes.TEMPERATURE:
           x.convertToF();
@@ -44,7 +31,7 @@ const WeatherHistory = (options) => {
 
   const convertToInternationalUnits = () => {
     styledLog(Colors.YELLOW, "\nConverting to INTERNATIONAL units");
-    options.data.forEach((x) => {
+    data.map((x) => {
       switch (x.getType()) {
         case WeatherDataTypes.TEMPERATURE:
           x.convertToC();
@@ -62,83 +49,46 @@ const WeatherHistory = (options) => {
     styledLog(Colors.YELLOW, "Converted to INTERNATIONAL units");
   };
 
-  const typeCondition = (x) =>
-    getCurrentType() ? x.getType() === getCurrentType() : true;
-  const placeCondition = (x) =>
-    getCurrentPlace() ? x.getPlace() === getCurrentPlace() : true;
-  const dateCondition = (x) =>
-    getCurrentDateInterval()
-      ? getCurrentDateInterval().contains(x.getTime())
-      : true;
+  const getData = () => data;
 
-  const add = (weatherData) => options.data.push(weatherData);
-  const data = () => {
-    let returnArray = [];
+  const including = () => data;
 
-    options.data.map((x) => {
-      typeCondition(x) &&
-        placeCondition(x) &&
-        dateCondition(x) &&
-        returnArray.push(x);
-    });
-
-    return returnArray;
+  const lowestValue = () => {
+    if (history.length === 0) {
+      data.lowest = undefined;
+    } else return data.lowest;
   };
-  const allData = () => options.data;
 
   const printData = (dataArrray) => {
     let historyTitle = "\nWeather history:";
-    let placeString =
-      getCurrentPlace() !== undefined ? " \n - in: " + getCurrentPlace() : "";
-    let typeString =
-      getCurrentType() !== undefined ? " \n - for: " + getCurrentType() : "";
-    let dateString =
-      getCurrentDateInterval() !== undefined
-        ? " \n - from: " +
-          getCurrentDateInterval().from() +
-          " \n - to: " +
-          getCurrentDateInterval().to()
-        : "";
-
     styledLog(Colors.CYAN, historyTitle);
 
-    styledLog(Colors.BLUE, placeString + typeString + dateString);
-
-    let placeDetailsString = "";
-    let typeDetailsString = "";
-
     dataArrray.map((x) => {
-      placeDetailsString = getCurrentPlace() === undefined ? x.getPlace() : "";
-      typeDetailsString = getCurrentType() === undefined ? x.getType() : "";
       styledLog(
         Colors.GREEN,
-        placeDetailsString +
-          " " +
-          typeDetailsString +
-          " " +
-          x.getUnit() +
-          " " +
-          x.getValue()
+        x.getPlace() +
+          " | " +
+          x.getType() +
+          " | " +
+          x.getValue()+
+          " | " +
+          x.getUnit()+       
+          " | " +
+          x.getTime()
       );
     });
   };
 
   return {
-    data,
-    getCurrentType,
-    setCurrentType,
-    clearCurrentType,
-    getCurrentPlace,
-    setCurrentPlace,
-    clearCurrentPlace,
-    getCurrentDateInterval,
-    setCurrentDateInterval,
-    clearCurrentDateInterval,
-    allData,
-    add,
+    printData,
+    getData,
+    forPlace,
+    forType,
+    forPeriod,
+    including,
+    lowestValue,
     convertToInternationalUnits,
     convertToUsUnits,
-    printData,
   };
 };
 
