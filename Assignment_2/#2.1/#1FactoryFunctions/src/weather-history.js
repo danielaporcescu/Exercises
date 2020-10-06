@@ -54,8 +54,30 @@ const WeatherHistory = (data) => {
   const including = () => data;
 
   const lowestValue = () => {
-    if (history.length === 0) {
+    let cloudValues = data
+      .filter((x) => x.getType() === WeatherDataTypes.CLOUDCOVERAGE)
+      .map((y) => y.getValue());
+    let temperatureValues = data
+      .filter((x) => x.getType() === WeatherDataTypes.TEMPERATURE)
+      .map((y) => y.getValue());
+    let precipitationValues = data
+      .filter((x) => x.getType() === WeatherDataTypes.PRECIPITATION)
+      .map((y) => y.getValue());
+    let windValues = data
+      .filter((x) => x.getType() === WeatherDataTypes.WIND)
+      .map((y) => y.getValue());
+
+    const reducer = (lowest, currentValue) => {
+      if (currentValue < lowest) {
+        lowest = currentValue;
+      }
+    };
+    
+    if (data.length === 0) {
       data.lowest = undefined;
+    }
+    if (data.getType() === WeatherDataTypes.CLOUDCOVERAGE) {
+      data.lowest = cloudValues(reducer);
     } else return data.lowest;
   };
 
@@ -70,9 +92,9 @@ const WeatherHistory = (data) => {
           " | " +
           x.getType() +
           " | " +
-          x.getValue()+
+          x.getValue() +
           " | " +
-          x.getUnit()+       
+          x.getUnit() +
           " | " +
           x.getTime()
       );
