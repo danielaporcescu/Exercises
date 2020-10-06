@@ -72,12 +72,12 @@ const WeatherHistory = (data) => {
         lowest = currentValue;
       }
     };
-    
+
     if (data.length === 0) {
       data.lowest = undefined;
     }
     if (data.getType() === WeatherDataTypes.CLOUDCOVERAGE) {
-      data.lowest = cloudValues(reducer);
+      data.lowest = cloudValues.red (reducer);
     } else return data.lowest;
   };
 
