@@ -1,7 +1,7 @@
 import { SpeedUnits, WeatherDataTypes, Colors } from "./enums.js";
 import WeatherData from "./weather-data.js";
-import { msToMph, mphToMs } from "../../helpers/unit-converter.helper.js";
-import { styledLog } from "../../helpers/colored-logs.helper.js";
+import { msToMph, mphToMs } from "../helpers/unit-converter.helper.js";
+import { styledLog } from "../helpers/colored-logs.helper.js";
 
 const Wind = (options) => {
   options.type = WeatherDataTypes.WIND;

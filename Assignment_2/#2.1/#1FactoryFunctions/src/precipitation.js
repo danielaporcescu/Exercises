@@ -1,7 +1,7 @@
 import { LengthUnits, WeatherDataTypes, Colors } from "./enums.js";
 import WeatherData from "./weather-data.js";
-import { mmToInch, inchToMM } from "../../helpers/unit-converter.helper.js";
-import { styledLog } from "../../helpers/colored-logs.helper.js";
+import { mmToInch, inchToMM } from "../helpers/unit-converter.helper.js";
+import { styledLog } from "../helpers/colored-logs.helper.js";
 
 const Precipitation = (options) => {
   options.type = WeatherDataTypes.PRECIPITATION;

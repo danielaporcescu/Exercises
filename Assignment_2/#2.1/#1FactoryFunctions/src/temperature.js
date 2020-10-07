@@ -3,8 +3,8 @@ import { TemperatureUnits, Colors, WeatherDataTypes } from "./enums.js";
 import {
   farenheitToCelsius,
   celsiusToFarenheit,
-} from "../../helpers/unit-converter.helper.js";
-import { styledLog } from "../../helpers/colored-logs.helper.js";
+} from "../helpers/unit-converter.helper.js";
+import { styledLog } from "../helpers/colored-logs.helper.js";
 
 const Temperature = (options) => {
   options.type = WeatherDataTypes.TEMPERATURE;
