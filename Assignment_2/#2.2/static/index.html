@@ -1,8 +1,42 @@
 <html>
   <head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Weather Report</title>
+    <!-- <style>
+        td {
+            width: 40px;
+            height: 40px;
+            border: 1px solid black;
+        }
+        table {
+            border: 1px solid black;
+            border-spacing: 0;
+        }
+    </style> -->
 
   </head>
-  <body>
-    
+  <body onload="init()">
+    <div id='base'>
+        <h1>Weather Report</h1>
+        <table id='weather', class="styled-table">
+            <thead>
+              <tr>
+                <td>Type</td>
+                <td>Time</td>
+                <td>Place</td>
+                <td>Value</td>
+                <td>Unit</td>
+              </tr>
+            </thead>
+            <tbody id='weather_data'>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+        
+            </tbody>
+        </table>
+    </div>
   </body>
 </html>
