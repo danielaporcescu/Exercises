@@ -77,28 +77,7 @@ const WeatherHistory = (data) => {
     return {lowestCloudValue, lowestPrecipitationValue, lowestTemperatureValue, lowestWindValue}
   };
 
-  const printData = (dataArrray) => {
-    let historyTitle = "\nWeather history:";
-    styledLog(Colors.CYAN, historyTitle);
-
-    dataArrray.map((x) => {
-      styledLog(
-        Colors.GREEN,
-        x.getPlace() +
-          " | " +
-          x.getType() +
-          " | " +
-          x.getValue() +
-          " | " +
-          x.getUnit() +
-          " | " +
-          x.getTime()
-      );
-    });
-  };
-
   return {
-    printData,
     getData,
     forPlace,
     forType,

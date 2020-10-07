@@ -12,6 +12,7 @@ import Temperature from "./../src/temperature.js";
 import Precipitation from "./../src/precipitation.js";
 import Wind from "./../src/wind.js";
 import CloudCoverage from "./../src/cloud-coverage.js";
+import {printData} from "../helpers/log-weather-data.helper.js"
 
 let temp = Temperature({
   unit: TemperatureUnits.CELSIUS,
@@ -80,28 +81,28 @@ let wh = WeatherHistory([temp, temp1, clouds, clouds1, clouds2, prec, prec1, win
 // console.log(wh.forPlace("Aarhus"));
 // console.log(wh.forType(WeatherDataTypes.PRECIPITATION));
 
-// wh.printData(wh.forPlace("Aarhus"));
-// wh.printData(wh.forType(WeatherDataTypes.TEMPERATURE));
-// wh.printData(wh.forPeriod(new Date(2014, 10, 23), new Date(2014, 12, 23)))
+printData(wh.forPlace("Aarhus"));
+printData(wh.forType(WeatherDataTypes.TEMPERATURE));
+// printData(wh.forPeriod(new Date(2014, 10, 23), new Date(2014, 12, 23)))
 console.log(wh.lowestValue());
-// wh.printData(wh.data());
+// printData(wh.data());
 // wh.convertToUsUnits();
-// wh.printData(wh.data());
+// printData(wh.data());
 
 // wh.convertToInternationalUnits();
-// wh.printData(wh.data());
+// printData(wh.data());
 // console.log(wh.data());
-// wh.printData(wh.data());
+// printData(wh.data());
 // wh.setCurrentType(WeatherDataTypes.PRECIPITATION);
-// wh.printData(wh.data());
+// printData(wh.data());
 // wh.clearCurrentType();
-// wh.printData(wh.data());
+// printData(wh.data());
 // wh.clearCurrentPlace();
-// wh.printData(wh.data());
+// printData(wh.data());
 // wh.clearCurrentDateInterval();
-// wh.printData(wh.data());
+// printData(wh.data());
 // wh.convertToUsUnits();
-// wh.printData(wh.data());
+// printData(wh.data());
 // wh.convertToUsUnits();
 // wh.setCurrentType(WeatherDataTypes.PRECIPITATION);
-// wh.printData(wh.data());
+// printData(wh.data());
