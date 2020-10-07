@@ -3,8 +3,8 @@ import WeatherPrediction from "./weather-prediction.js";
 import {
   farenheitToCelsius,
   celsiusToFarenheit,
-} from "../../helpers/unit-converter.helper.js";
-import { styledLog } from "../../helpers/colored-logs.helper.js";
+} from "../helpers/unit-converter.helper.js";
+import { styledLog } from "../helpers/colored-logs.helper.js";
 
 function TemperaturePrediction(options) {
   options.type = WeatherDataTypes.TEMPERATURE;

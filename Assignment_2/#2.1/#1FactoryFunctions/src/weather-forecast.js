@@ -1,5 +1,5 @@
 import { WeatherDataTypes, Colors } from "./enums.js";
-import { styledLog } from "../../helpers/colored-logs.helper.js";
+import { styledLog } from "../helpers/colored-logs.helper.js";
 
 const WeatherForecast = (options) => {
   const getCurrentPlace = () => options.place;

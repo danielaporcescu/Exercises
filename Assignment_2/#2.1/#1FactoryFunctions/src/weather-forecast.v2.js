@@ -7,11 +7,12 @@ import {
   PrecipitationTypes,
   CardinalDirections,
 } from "./enums.js";
-import { styledLog } from "../../helpers/colored-logs.helper.js";
+import { styledLog } from "../helpers/colored-logs.helper.js";
 import TemperaturePrediction from "./temperature-prediction.js";
 import CloudCoveragePrediction from "./cloud-coverage-prediction.js";
 import WindPrediction from "./wind-prediction.js";
 import PrecipitationPrediction from "./precipitation-prediction.js";
+import { printData } from "../helpers/log-weather-data.helper.js";
 
 import DateInterval from "./date-interval.js";
 
@@ -20,9 +21,10 @@ const WeatherForecast = (data) => {
 
   const forType = (type) => data.filter((x) => x.getType() === type);
 
-  const forPeriod = (period) => data.filter((x) => x.contains(x.getTime()));
+  const forPeriod = (period) =>
+    data.filter((x) => period.contains(x.getTime()));
 
-  const including = (data) => {};
+  const including = (weatherData) => data.push(weatherData);
 
   const convertToUsUnits = () => {
     styledLog(Colors.YELLOW, "'nConverting to US units");
@@ -183,9 +185,19 @@ let clouds = CloudCoveragePrediction({
   place: "Aarhus",
   type: WeatherDataTypes.CLOUDCOVERAGE,
 });
+let clouds2 = CloudCoveragePrediction({
+  unit: "Percentage",
+  from: -1,
+  to: 90,
+  time: new Date(2022, 12, 23),
+  place: "Aarhus",
+  type: WeatherDataTypes.CLOUDCOVERAGE,
+});
 let wh = WeatherForecast([temp, temp1, temp2, prec, clouds]);
-debugger;
-console.log(wh.averageFromValue());
+wh.including(clouds2);
+printData(wh.forType(WeatherDataTypes.CLOUDCOVERAGE));
+// debugger;
+// console.log(wh.averageFromValue());
 
-console.log(wh.forPlace("Aarhus"));
-console.log(wh.averageToValue());
+// console.log(wh.forPlace("Aarhus"));
+// console.log(wh.averageToValue());
