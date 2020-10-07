@@ -53,6 +53,8 @@ const WeatherHistory = (data) => {
 
   const including = () => data;
 
+  const reducer = (lowest, currentValue) => Math.min(lowest, currentValue);
+
   const lowestValue = () => {
     let cloudValues = data
       .filter((x) => x.getType() === WeatherDataTypes.CLOUDCOVERAGE)
@@ -67,18 +69,12 @@ const WeatherHistory = (data) => {
       .filter((x) => x.getType() === WeatherDataTypes.WIND)
       .map((y) => y.getValue());
 
-    const reducer = (lowest, currentValue) => {
-      if (currentValue < lowest) {
-        lowest = currentValue;
-      }
-    };
+    let lowestCloudValue = cloudValues.length ===0 ? undefined : cloudValues.reduce(reducer);
+    let lowestTemperatureValue =temperatureValues.length ===0 ? undefined : temperatureValues.reduce(reducer);
+    let lowestWindValue = windValues.length === 0 ? undefined :  windValues.reduce(reducer);
+    let lowestPrecipitationValue =precipitationValues.length ===0 ? undefined : precipitationValues.reduce(reducer);
 
-    if (data.length === 0) {
-      data.lowest = undefined;
-    }
-    if (data.getType() === WeatherDataTypes.CLOUDCOVERAGE) {
-      data.lowest = cloudValues.red (reducer);
-    } else return data.lowest;
+    return {lowestCloudValue, lowestPrecipitationValue, lowestTemperatureValue, lowestWindValue}
   };
 
   const printData = (dataArrray) => {

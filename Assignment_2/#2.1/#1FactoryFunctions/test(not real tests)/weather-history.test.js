@@ -53,19 +53,37 @@ let wind = Wind({
 });
 let clouds = CloudCoverage({
   unit: "Percentage",
-  value: 10,
+  value: 0.1,
+  time: new Date(2022, 12, 23),
+  place: "Aarhus",
+  type: WeatherDataTypes.CLOUDCOVERAGE,
+});
+let clouds1 = CloudCoverage({
+  unit: "Percentage",
+  value: 5,
+  time: new Date(2022, 12, 23),
+  place: "Aarhus",
+  type: WeatherDataTypes.CLOUDCOVERAGE,
+});
+let clouds2 = CloudCoverage({
+  unit: "Percentage",
+  value: 2,
   time: new Date(2022, 12, 23),
   place: "Aarhus",
   type: WeatherDataTypes.CLOUDCOVERAGE,
 });
 
-let wh = WeatherHistory([temp, temp1, clouds, prec, prec1, wind]);
+
+let wh = WeatherHistory([temp, temp1, clouds, clouds1, clouds2, prec, prec1, wind]);
+
+
 // console.log(wh.forPlace("Aarhus"));
 // console.log(wh.forType(WeatherDataTypes.PRECIPITATION));
 
-wh.printData(wh.forPlace("Aarhus"));
-wh.printData(wh.forType(WeatherDataTypes.TEMPERATURE));
-wh.printData(wh.forPeriod(new Date(2014, 10, 23), new Date(2014, 12, 23)))
+// wh.printData(wh.forPlace("Aarhus"));
+// wh.printData(wh.forType(WeatherDataTypes.TEMPERATURE));
+// wh.printData(wh.forPeriod(new Date(2014, 10, 23), new Date(2014, 12, 23)))
+console.log(wh.lowestValue());
 // wh.printData(wh.data());
 // wh.convertToUsUnits();
 // wh.printData(wh.data());
