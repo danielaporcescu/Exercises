@@ -1,4 +1,13 @@
-import {Directions} from "../util/enum.js"
+const Directions = {
+  N: "North",
+  S: "South",
+  E: "East",
+  W: "West",
+  NE: "Northeast",
+  NW: "Northwest",
+  SE: "Southeast",
+  SW: "Southwest",
+};
 
 var weatherContainer = document.getElementById("data");
 
@@ -7,9 +16,8 @@ request.onload = function () {
   if (this.status === 200) {
     try {
       const reqObj = JSON.parse(request.responseText);
-      console.log(dominantWindDirection(reqObj));
       renderHTML(reqObj);
-      //console.log(reqObj.filterPlace());
+      console.log(dominantWindDirection(reqObj));
     } catch (e) {
       console.warn("Error in JSON. Could not parse!");
     }
@@ -21,7 +29,7 @@ request.open("GET", "http://localhost:8080/data");
 request.send();
 
 function renderHTML(data) {
-  var filtered = dominantWindDirection(data);
+  var filtered = latestMeasurements(data);
   weatherContainer.innerHTML = filtered
     .map(
       (x) => `<tr>
@@ -138,22 +146,31 @@ function averageWindSpeed(data) {
 function dominantWindDirection(data) {
   let windDirections = data
     .filter((x) => x.type === "wind speed")
-    .map((y) => y.direction);
+    .map((y) => y.direction)
 
-      windDirections.map(x=>
-          {
-              var count = 0;
-              switch(x.direction)
-              {
-                  case "West":
-                    count +=windDirections.length();
+    var counted = _.countBy(windDirections, function(dir)
+    {
+        if(dir == "North")
+        return dominantNorth
+    })
+    let dir = windDirections.ToLi .countBy('North')
 
-              }
-          })
-    let dominantWindDirection =
-    windDirections.length === 0
-        ? undefined
-        : windDirection.length;
-
+  // var countD = countBy(windDirections, "direction")
+  // console.log(countD)
+  // return countD;
+  //   var mf = 1;
+  //   var m = 0;
+  //   var item;
+  //   for (var i = 0; i < windDirections.length; i++) {
+  //     for (var j = i; j < windDirections.length; j++) {
+  //       if (windDirections[i] == windDirections[j])
+  //       m++;
+  //       if (mf < m) {
+  //         mf = m;
+  //         item = windDirections[i];
+  //       }
+  //     }
+  //     m = 0;
+  //   }
   return windDirections;
 }
