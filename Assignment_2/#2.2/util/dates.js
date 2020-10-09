@@ -1,4 +1,4 @@
-const {pipe, flatMap, range} = require('./utils.js')
+import { pipe, flatMap, range } from './utils.js'
 
 const ms_per_hour = 60 * 60 * 1000
 const ms_per_day = 24 * ms_per_hour
@@ -14,7 +14,7 @@ const next_24_hours = date => range(24).map(hours_after(date))
 const latest_week = date => range(7).map(d => days_later(d)(week_before(beginning_of_day(date))))
 const hours_in_latest_week = pipe(latest_week, flatMap(next_24_hours))
 
-module.exports = {
+export default {
     ms_per_hour,
     ms_per_day,
     days_per_week,

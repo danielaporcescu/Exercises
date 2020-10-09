@@ -19,4 +19,4 @@ const partition = p => xs => {
 const range = n => [...Array(n).keys()]
 
 const pipe = (...fs) => x => fs.reduce((arg, f) => f(arg), x)
-module.exports = {flatten, flatMap, range, pipe, findIndeces, partition, findLast}
+export default {flatten, flatMap, range, pipe, findIndeces, partition, findLast}
