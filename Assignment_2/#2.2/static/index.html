@@ -1,41 +1,63 @@
 <html>
 
 <head>
+  <base href="/">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <h1>Historical</h1>
-  <table>
-    <thead>
-      <tr>
-        <td>Value</td>
-        <td>Type</td>
-        <td>Sub-Type</td>
-        <td>Unit</td>
-        <td>Time</td>
-        <td>Place</td>
-      </tr>
-    </thead>
-    <tbody id='data'></tbody>
-  </table>
-  <h1>Forecast</h1>
-  <table>
-    <thead>
-      <tr>
-        <td>Value from</td>
-        <td>Value to</td>
-        <td>Type</td>
-        <td>Unit</td>
-        <td>Time</td>
-        <td>Place</td>
-      </tr>
-    </thead>
-    <tbody id='forecast'></tbody>
-  </table>
-  <script src='index.js'>
-    // import { next_24_hours } from '../util/dates.js';
-  </script>
+  <nav class="navbar navbar-dark primary-color">
+    <a class="navbar-brand" href="#">Link</a>
+  </nav>
+  <br>
+  <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <div class="navbar-header" >
+      <div class="container">
+      <!-- <a class="navbar-brand" href="#"> -->
+      <img alt="Brand" src="sun.png" style="float: left;margin-left: 100px ;" width='40' height='40'>
+      <a href="/" class="navbar-brand">Weather Data</a>
+      <div class="container">
+      <!-- </a> -->
+    </div>
+  </header>
+  <div class="container">
+    <h1>Historical Data</h1>
+    <table>
+      <thead>
+        <tr>
+          <td>Value</td>
+          <td>Type</td>
+          <td>Sub-Type</td>
+          <td>Unit</td>
+          <td>Time</td>
+          <td>Place</td>
+        </tr>
+      </thead>
+      <tbody id='data'></tbody>
+    </table>
+  </br>
+    <h1>Forecast</h1>
+    <table>
+      <thead>
+        <tr>
+          <td>Value from</td>
+          <td>Value to</td>
+          <td>Type</td>
+          <td>Unit</td>
+          <td>Time</td>
+          <td>Place</td>
+        </tr>
+      </thead>
+      <tbody id='forecast'></tbody>
+    </table>
+  </div>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src='index.js'></script>
 
 </body>
 

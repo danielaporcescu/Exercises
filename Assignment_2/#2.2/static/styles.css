@@ -1,5 +1,6 @@
 table {
-  font-family: arial, sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
   border-collapse: collapse;
   width: 100%;
 }
@@ -13,4 +14,34 @@ td, th {
 tr:nth-child(even) {
   background-color: #51adcf;
   border-collapse: collapse;
+}
+
+@import 'https://fonts.googleapis.com/css?family=Montserrat|Open+Sans';
+.navbar-brand {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase
+}
+.brand {height: 25px;}
+
+.navbar .nav {
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 1.2rem
+}
+
+.navbar-inverse {
+  background-color: #0A81D1
+}
+
+.navbar-inverse {
+  border-color: #0A81D1
+}
+
+.navbar-inverse .navbar-brand {
+  color: #FFFFFF
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: white;
 }

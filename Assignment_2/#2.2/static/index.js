@@ -1,8 +1,6 @@
 var weatherContainer = document.getElementById("data");
 var forecastContainer = document.getElementById("forecast");
 
-//import { next_24_hours } from "../util/dates.js";
-
 const request1 = new XMLHttpRequest();
 request1.onload = function () {
   if (this.status === 200) {

@@ -17,6 +17,10 @@ app.use(function(req, res, next) {
     next();
 });
 app.use(express.static('static'))
+app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + './node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use(express.static(__dirname + './node_modules/jquery/dist')); // redirect JS jQuery
+app.use(express.static(__dirname + './node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
 const wss = new WebSocket.Server({ port: web_socket_port, path: '/warnings' })
 
