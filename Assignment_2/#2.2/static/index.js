@@ -1,12 +1,15 @@
 var weatherContainer = document.getElementById("data");
+var forecastContainer = document.getElementById("forecast");
 
-const request = new XMLHttpRequest();
-request.onload = function () {
+//import { next_24_hours } from "../util/dates.js";
+
+const request1 = new XMLHttpRequest();
+request1.onload = function () {
   if (this.status === 200) {
     try {
-      const reqObj = JSON.parse(request.responseText);
-      renderHTML(reqObj);
-      console.log(getDataForLastNDAysForType(reqObj, 5, "temperature"));
+      const reqObj1 = JSON.parse(request1.responseText);
+      renderHTMLForData(reqObj1);
+      //console.log(getDataForLastNDaysForType(reqObj1, 5, "temperature"));
     } catch (e) {
       console.warn("Error in JSON. Could not parse!");
     }
@@ -14,10 +17,27 @@ request.onload = function () {
     console.warn("Did not receive 200 OK from response");
   }
 };
-request.open("GET", "http://localhost:8080/data");
-request.send();
+request1.open("GET", "http://localhost:8080/data");
+request1.send();
 
-function renderHTML(data) {
+const request2 = new XMLHttpRequest();
+request2.onload = function () {
+  if (this.status === 200) {
+    try {
+      const reqObj2 = JSON.parse(request2.responseText);
+      renderHTMLForForecast(reqObj2);
+      console.log(predictions24Hours(reqObj2));
+    } catch (e) {
+      console.warn("Error in JSON. Could not parse!");
+    }
+  } else {
+    console.warn("Did not receive 200 OK from response");
+  }
+};
+request2.open("GET", "http://localhost:8080/forecast");
+request2.send();
+
+function renderHTMLForData(data) {
   var filtered = latestMeasurements(data);
   weatherContainer.innerHTML = filtered
     .map(
@@ -34,8 +54,21 @@ function renderHTML(data) {
     .join("");
 }
 
-function filterLatestTime(data) {
-  return new Date(Math.max(...data.map((e) => new Date(e.time))));
+function renderHTMLForForecast(data) {
+  var filtered = predictions24Hours(data);
+  forecastContainer.innerHTML = filtered
+    .map(
+      (x) =>
+        `<tr>
+    <td>${x.from}</td>
+    <td>${x.to}</td>
+    <td>${x.type}</td>
+    <td>${x.unit}</td>
+    <td>${x.time}</td>
+    <td>${x.place}</td>
+      </tr>`
+    )
+    .join("");
 }
 
 function latestMeasurements(data) {
@@ -65,17 +98,32 @@ function latestMeasurements(data) {
   return [lastTemp, lastPrec, lastCloud, lastWind];
 }
 
-const getDataForLastNDAysForType = (data, n, type) => {
+const getDataForLastNDaysForType = (data, n, type) => {
   let limitDate = new Date(Date.now());
   limitDate.setDate(limitDate.getDate() - n);
   return data.filter(
     (x) =>
+      x.type === type &&
       new Date(x.time).toLocaleString() > limitDate.toLocaleString() &&
-      new Date(x.time).toLocaleString() <
-        new Date(Date.now()).toLocaleString() &&
-      x.type === type
+      new Date(x.time).toLocaleString() < new Date(Date.now()).toLocaleString()
   );
 };
+
+const range = n => [...Array(n).keys()];
+const ms_per_hour = 60 * 60 * 1000;
+const hours_after = date => hours => new Date(date.getTime() + hours * ms_per_hour);
+const next_24_hours = date => range(24).map(hours_after(date));
+
+
+function predictions24Hours(data) {
+  let next24Hours = next_24_hours(new Date(Date.now()));
+  var filtered = data.filter(
+    (x) =>
+      new Date(x.time).toLocaleString() >= next24Hours[0].toLocaleString() &&
+      new Date(x.time).toLocaleString() <= next24Hours[23].toLocaleString()
+  );
+  return filtered;
+}
 
 const reducerMin = (min, currentValue) => Math.min(min, currentValue);
 const reducerMax = (max, currentValue) => Math.max(max, currentValue);
