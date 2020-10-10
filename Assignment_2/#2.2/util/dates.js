@@ -28,5 +28,3 @@ module.exports = {
     latest_week,
     hours_in_latest_week,
 }
-
-console.log(next_24_hours(new Date(Date.now())).toLocaleString() );
