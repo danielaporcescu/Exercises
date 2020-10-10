@@ -1,14 +1,3 @@
-const Directions = {
-  N: "North",
-  S: "South",
-  E: "East",
-  W: "West",
-  NE: "Northeast",
-  NW: "Northwest",
-  SE: "Southeast",
-  SW: "Southwest",
-};
-
 var weatherContainer = document.getElementById("data");
 
 const request = new XMLHttpRequest();
@@ -17,7 +6,7 @@ request.onload = function () {
     try {
       const reqObj = JSON.parse(request.responseText);
       renderHTML(reqObj);
-      console.log(dominantWindDirection(reqObj));
+      console.log(getDataForLastNDAysForType(reqObj, 5, "temperature"));
     } catch (e) {
       console.warn("Error in JSON. Could not parse!");
     }
@@ -32,14 +21,15 @@ function renderHTML(data) {
   var filtered = latestMeasurements(data);
   weatherContainer.innerHTML = filtered
     .map(
-      (x) => `<tr>
+      (x) =>
+        `<tr>
   <td>${x.value}</td>
   <td>${x.type}</td>
   <td>${x.direction}</td>
   <td>${x.unit}</td>
   <td>${x.time}</td>
   <td>${x.place}</td>
-</tr>`
+    </tr>`
     )
     .join("");
 }
@@ -98,12 +88,12 @@ function lowestTemperatureValue(data) {
     .filter((x) => x.type === "temperature")
     .map((y) => y.value);
 
-  let lowestTemperatureValue =
+  let lowestValue =
     temperatureValues.length === 0
       ? undefined
       : temperatureValues.reduce(reducerMin);
 
-  return lowestTemperatureValue;
+  return lowestValue;
 }
 
 function highestTemperatureValue(data) {
@@ -111,12 +101,12 @@ function highestTemperatureValue(data) {
     .filter((x) => x.type === "temperature")
     .map((y) => y.value);
 
-  let highestTemperatureValue =
+  let highestValue =
     temperatureValues.length === 0
       ? undefined
       : temperatureValues.reduce(reducerMax);
 
-  return highestTemperatureValue;
+  return highestValue;
 }
 
 function totalPrecipitation(data) {
@@ -124,12 +114,12 @@ function totalPrecipitation(data) {
     .filter((x) => x.type === "precipitation")
     .map((y) => y.value);
 
-  let totalPrecipitation =
+  let total =
     precipitationValues.length === 0
       ? undefined
       : precipitationValues.reduce(reducerTotal);
 
-  return totalPrecipitation;
+  return total;
 }
 
 function averageWindSpeed(data) {
@@ -137,40 +127,40 @@ function averageWindSpeed(data) {
     .filter((x) => x.type === "wind speed")
     .map((y) => y.value);
 
-  let averageWindSpeed =
+  let averageSpeed =
     windValues.length === 0 ? undefined : windValues.reduce(reduceAverage);
 
-  return averageWindSpeed;
+  return averageSpeed;
+}
+
+function averageCloudCoverage(data) {
+  let cloudValues = data
+    .filter((x) => x.type === "cloud coverage")
+    .map((y) => y.value);
+
+  let averageCoverage =
+    cloudValues.length === 0 ? undefined : cloudValues.reduce(reduceAverage);
+
+  return averageCoverage;
 }
 
 function dominantWindDirection(data) {
   let windDirections = data
     .filter((x) => x.type === "wind speed")
-    .map((y) => y.direction)
+    .map((y) => y.direction);
 
-    var counted = _.countBy(windDirections, function(dir)
-    {
-        if(dir == "North")
-        return dominantNorth
-    })
-    let dir = windDirections.ToLi .countBy('North')
-
-  // var countD = countBy(windDirections, "direction")
-  // console.log(countD)
-  // return countD;
-  //   var mf = 1;
-  //   var m = 0;
-  //   var item;
-  //   for (var i = 0; i < windDirections.length; i++) {
-  //     for (var j = i; j < windDirections.length; j++) {
-  //       if (windDirections[i] == windDirections[j])
-  //       m++;
-  //       if (mf < m) {
-  //         mf = m;
-  //         item = windDirections[i];
-  //       }
-  //     }
-  //     m = 0;
-  //   }
-  return windDirections;
+  var mf = 1;
+  var m = 0;
+  var item;
+  for (var i = 0; i < windDirections.length; i++) {
+    for (var j = i; j < windDirections.length; j++) {
+      if (windDirections[i] == windDirections[j]) m++;
+      if (mf < m) {
+        mf = m;
+        item = windDirections[i];
+      }
+    }
+    m = 0;
+  }
+  return item;
 }
