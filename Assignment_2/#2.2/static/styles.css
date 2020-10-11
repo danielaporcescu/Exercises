@@ -1,9 +1,11 @@
+@import "https://fonts.googleapis.com/css?family=Montserrat|Open+Sans";
 h1,
 h2,
 h3,
 h4 {
   font-family: "Montserrat", sans-serif;
   position: relative;
+  font-weight: bold;
 }
 
 h2 {
@@ -11,13 +13,13 @@ h2 {
 }
 
 h4 {
-  /* margin-left: 24px; */
   color: #999;
   font-weight: 300;
 }
 
 span span {
   margin-left: 0;
+  font-weight: bold;
 }
 
 table {
@@ -40,7 +42,6 @@ tr:nth-child(even) {
   border-collapse: collapse;
 }
 
-@import "https://fonts.googleapis.com/css?family=Montserrat|Open+Sans";
 .navbar-brand {
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
