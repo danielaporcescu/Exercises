@@ -14,11 +14,6 @@ request1.onload = function () {
       const reqObj1 = JSON.parse(request1.responseText);
       renderHTMLForData(reqObj1);
       init(reqObj1);
-      console.log(
-        lowestTemperatureValue(
-          getDataForLastNDaysForType(reqObj1, 5, "temperature")
-        )
-      );
     } catch (e) {
       console.warn("Error in JSON. Could not parse!");
     }
@@ -35,7 +30,6 @@ request2.onload = function () {
     try {
       const reqObj2 = JSON.parse(request2.responseText);
       renderHTMLForForecast(reqObj2);
-      console.log(predictions24Hours(reqObj2));
     } catch (e) {
       console.warn("Error in JSON. Could not parse!");
     }
@@ -64,6 +58,7 @@ function renderHTMLForData(data) {
     )
     .join("");
 }
+
 function init(data) {
   minTempContainer.innerHTML = lowestTemperatureValue(
     getDataForLastNDaysForType(data, 5, "temperature")
@@ -76,13 +71,13 @@ function init(data) {
   ).toFixed(2);
   averageWindSpeedContainer.innerHTML = averageWindSpeed(
     getDataForLastNDaysForType(data, 5, "wind speed")
-  ).toFixed(2);;
+  ).toFixed(2);
   directionContainer.innerHTML = dominantWindDirection(
     getDataForLastNDaysForType(data, 5, "wind speed")
   );
   cloudsContainer.innerHTML = averageCloudCoverage(
     getDataForLastNDaysForType(data, 5, "cloud coverage")
-  ).toFixed(2);;
+  ).toFixed(2);
 }
 
 function renderHTMLForForecast(data) {
