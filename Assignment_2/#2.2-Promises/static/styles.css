@@ -1,0 +1,151 @@
+@import "https://fonts.googleapis.com/css?family=Montserrat|Open+Sans";
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+}
+
+h2 {
+  font-size: 2.25em;
+  font-weight: bold;
+}
+
+h4 {
+  color: rebeccapurple;
+  font-weight: 300;
+  font-weight: bold;
+}
+
+span span {
+  margin-left: 0;
+  font-weight: bold;
+}
+
+table {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  border-collapse: collapse;
+  width: 100%;
+}
+.table-container {
+  background-color: white;
+  margin: 0 auto;
+  padding: 5px 30px;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+  border-collapse: collapse;
+}
+
+.navbar-brand {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+}
+.brand {
+  height: 25px;
+}
+
+.navbar .nav {
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 1.2rem;
+}
+
+.navbar-inverse {
+  background-color: #0caadc;
+}
+
+.navbar-inverse {
+  border-color: #0caadc;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #ffffff;
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: white;
+}
+
+.table-head-color {
+  background-color: #0caadc !important;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+html,
+body {
+  background-color: #f3f3f3;
+  font-family: "Roboto", sans-serif;
+}
+
+.card {
+  margin: 0 auto;
+  margin-bottom: 5%;
+  padding: 5px 30px;
+  width: auto;
+  height: auto;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dot {
+  font-size: 0.9em;
+}
+
+.sky {
+  position: relative;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #03a9f4;
+}
+
+.sun {
+  position: relative;
+  top: -3px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: #ffeb3b;
+}
+
+.cloud {
+  position: absolute;
+  top: 60px;
+  left: 30px;
+}
+
+.cloud:before,
+.cloud:after {
+  position: absolute;
+  display: block;
+  content: "";
+}
+
+.cloud:before {
+  margin-left: -10px;
+  width: 51px;
+  height: 18px;
+  background: #fff;
+}
+
+.cloud:after {
+  position: absolute;
+  top: -10px;
+  left: -22px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 50px -6px 0 6px #fff, 25px -19px 0 10px #fff;
+}
