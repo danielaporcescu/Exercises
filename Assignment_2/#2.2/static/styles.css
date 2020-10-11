@@ -1,4 +1,4 @@
-table {
+/* table {
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
   border-collapse: collapse;
@@ -14,7 +14,7 @@ td, th {
 tr:nth-child(even) {
   background-color: #51adcf;
   border-collapse: collapse;
-}
+} */
 
 @import 'https://fonts.googleapis.com/css?family=Montserrat|Open+Sans';
 .navbar-brand {
