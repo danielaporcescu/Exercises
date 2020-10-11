@@ -13,6 +13,7 @@ request1.onload = function () {
     try {
       const reqObj1 = JSON.parse(request1.responseText);
       renderHTMLForData(reqObj1);
+      init(reqObj1);
       console.log(
         lowestTemperatureValue(
           getDataForLastNDaysForType(reqObj1, 5, "temperature")
@@ -62,6 +63,22 @@ function renderHTMLForData(data) {
     </tr>`
     )
     .join("");
+}
+function init(data) {
+  minTempContainer.innerHTML = lowestTemperatureValue(
+    getDataForLastNDaysForType(data, 5, "temperature")
+  );
+  maxTempContainer.innerHTML = highestTemperatureValue(
+    getDataForLastNDaysForType(data, 5, "temperature")
+  );
+  totalPrecipitationContainer.innerHTML = totalPrecipitation(
+    getDataForLastNDaysForType(data, 5, "precipitation")
+  );
+  averageWindSpeedContainer.innerHTML = averageWindSpeed(
+    getDataForLastNDaysForType(data, 5, "wind speed")
+  );
+  directionContainer.innerHTML = dominantWindDirection(getDataForLastNDaysForType(data, 5, "wind speed"));
+  cloudsContainer.innerHTML = averageCloudCoverage(getDataForLastNDaysForType(data, 5, "cloud coverage"))
 }
 
 function renderHTMLForForecast(data) {

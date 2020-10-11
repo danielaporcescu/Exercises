@@ -88,22 +88,22 @@ h4 {
   font-family: 'Montserrat', sans-serif;
     position: relative;
 } 
-
+/*
  h1 {
     /* float: right;
     color: #666;
     font-weight: 300;
     font-size: 6.59375em;
-    line-height: .2em; 
-    /* -webkit-animation: up 2s cubic-bezier(.39, 0, .38, 1) .2s; */
-} 
-/*
-h2 {
-    /* font-weight: 300;
-    font-size: 2.25em; */
-    /* -webkit-animation: up 2s cubic-bezier(.39, 0, .38, 1); 
-}
+    line-height: .2em; */
+    /* -webkit-animation: up 2s cubic-bezier(.39, 0, .38, 1) .2s; 
+} */
 
+h2 {
+    /* font-weight: 300;*/
+    font-size: 2.25em; 
+    /* -webkit-animation: up 2s cubic-bezier(.39, 0, .38, 1); */
+}
+/*
 h3 {
     /* float: left;
     margin-right: 33px;
