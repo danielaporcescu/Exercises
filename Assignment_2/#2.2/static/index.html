@@ -12,19 +12,17 @@
   </nav>
   <br>
   <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
-    <div class="navbar-header" >
+    <div class="navbar-header">
       <div class="container">
-      <!-- <a class="navbar-brand" href="#"> -->
-      <img alt="Brand" src="sun.png" style="float: left;margin-left: 100px ;" width='40' height='40'>
-      <a href="/" class="navbar-brand">Weather Data</a>
-      <div class="container">
-      <!-- </a> -->
-    </div>
+        <img alt="Brand" src="sun.png" style="float: left;margin-left: 100px ;" width='40' height='40'>
+        <a href="/" class="navbar-brand">Weather Data</a>
+        <div class="container">
+        </div>
   </header>
-  <div class="container">
+  <div class="col-sm-6 col-md-6 col-lg-6" style="padding-left: 100px;">
     <h1>Historical Data</h1>
     <table class="table">
-      <thead>
+      <thead class="table-head-color">
         <tr>
           <th scope="col">Value</th>
           <th scope="col">Type</th>
@@ -36,16 +34,14 @@
       </thead>
       <tbody id='data'></tbody>
     </table>
-
-  </br>
-  <div class="container">
+    </br>
     <h1>Weather Forecast</h1>
     <table class="table">
-      <thead>
+      <thead class="table-head-color">
         <tr>
-          <th scope="col">Value</th>
+          <th scope="col">From</th>
+          <th scope="col">To</th>
           <th scope="col">Type</th>
-          <th scope="col">Sub-Type</th>
           <th scope="col">Unit</th>
           <th scope="col">Time</th>
           <th scope="col">Place</th>
@@ -54,12 +50,142 @@
       <tbody id='forecast'></tbody>
     </table>
   </div>
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src='index.js'></script>
+
+  <div class="col-sm-6 col-md-6 col-lg-6">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Temperature</h2>
+          <h3>Minimum</h3>
+          <h4>Last 5 days</h4>
+          <h1 id="minTemp"></h1>
+          <div class="sky">
+            <div class="sun"></div>
+            <div class="cloud">
+              <div class="circle-small"></div>
+              <div class="circle-tall"></div>
+              <div class="circle-medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Temperature</h2>
+          <h3>Maximum</h3>
+          <h4>Last 5 days</h4>
+          <h1 id="maxTemp"></h1>
+          <div class="sky">
+            <div class="sun"></div>
+            <div class="cloud">
+              <div class="circle-small"></div>
+              <div class="circle-tall"></div>
+              <div class="circle-medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Precipitation</h2>
+          <h3>Total</h3>
+          <h4>Last 5 days</h4>
+          <h1 id="totalPrec"></h1>
+          <div class="sky">
+            <div class="sun"></div>
+            <div class="cloud">
+              <div class="circle-small"></div>
+              <div class="circle-tall"></div>
+              <div class="circle-medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Wind Speed</h2>
+          <h3>Average</h3>
+          <h4>Last 5 days</h4>
+          <h1 id="speed"></h1>
+          <div class="sky">
+            <div class="sun"></div>
+            <div class="cloud">
+              <div class="circle-small"></div>
+              <div class="circle-tall"></div>
+              <div class="circle-medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Wind Direction</h2>
+          <h3>Dominant</h3>
+          <h4>Last 5 days</h4>
+          <h1 id="direction"></h1>
+          <div class="sky">
+            <div class="sun"></div>
+            <div class="cloud">
+              <div class="circle-small"></div>
+              <div class="circle-tall"></div>
+              <div class="circle-medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Cloud Coverage</h2>
+          <h3>Average</h3>
+          <h4>Last 5 days</h4>
+          <h1 id="clouds"></h1>
+          <div class="sky">
+            <div class="sun"></div>
+            <div class="cloud">
+              <div class="circle-small"></div>
+              <div class="circle-tall"></div>
+              <div class="circle-medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <table>
+        <tr>
+            <td>TUE</td>
+            <td>WED</td>
+            <td>THU</td>
+            <td>FRI</td>
+            <td>SAT</td>
+        </tr>
+        <tr>
+            <td>30°</td>
+            <td>34°</td>
+            <td>36°</td>
+            <td>34°</td>
+            <td>37°</td>
+        </tr>
+        <tr>
+            <td>17°</td>
+            <td>22°</td>
+            <td>19°</td>
+            <td>23°</td>
+            <td>19°</td>
+        </tr>
+    </table> -->
+  </div>
+  </div>
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src='index.js'></script>
 
 </body>
 

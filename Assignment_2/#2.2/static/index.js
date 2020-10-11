@@ -1,5 +1,11 @@
 var weatherContainer = document.getElementById("data");
 var forecastContainer = document.getElementById("forecast");
+var minTempContainer = document.getElementById("minTemp");
+var maxTempContainer = document.getElementById("maxTemp");
+var totalPrecipitationContainer = document.getElementById("totalPrec");
+var averageWindSpeedContainer = document.getElementById("speed");
+var directionContainer = document.getElementById("direction");
+var cloudsContainer = document.getElementById("clouds");
 
 const request1 = new XMLHttpRequest();
 request1.onload = function () {
@@ -7,7 +13,11 @@ request1.onload = function () {
     try {
       const reqObj1 = JSON.parse(request1.responseText);
       renderHTMLForData(reqObj1);
-      //console.log(getDataForLastNDaysForType(reqObj1, 5, "temperature"));
+      console.log(
+        lowestTemperatureValue(
+          getDataForLastNDaysForType(reqObj1, 5, "temperature")
+        )
+      );
     } catch (e) {
       console.warn("Error in JSON. Could not parse!");
     }
@@ -43,7 +53,9 @@ function renderHTMLForData(data) {
         `<tr>
   <td>${x.value}</td>
   <td>${x.type}</td>
-  <td>${x.direction}</td>
+  <td>${
+    x.direction ? x.direction : x.precipitation_type ? x.precipitation_type : ""
+  }</td>
   <td>${x.unit}</td>
   <td>${x.time}</td>
   <td>${x.place}</td>
@@ -102,16 +114,15 @@ const getDataForLastNDaysForType = (data, n, type) => {
   return data.filter(
     (x) =>
       x.type === type &&
-      new Date(x.time).toLocaleString() > limitDate.toLocaleString() &&
-      new Date(x.time).toLocaleString() < new Date(Date.now()).toLocaleString()
+      new Date(x.time).toLocaleString() > limitDate.toLocaleString()
   );
 };
 
-const range = n => [...Array(n).keys()];
+const range = (n) => [...Array(n).keys()];
 const ms_per_hour = 60 * 60 * 1000;
-const hours_after = date => hours => new Date(date.getTime() + hours * ms_per_hour);
-const next_24_hours = date => range(24).map(hours_after(date));
-
+const hours_after = (date) => (hours) =>
+  new Date(date.getTime() + hours * ms_per_hour);
+const next_24_hours = (date) => range(24).map(hours_after(date));
 
 function predictions24Hours(data) {
   let next24Hours = next_24_hours(new Date(Date.now()));
