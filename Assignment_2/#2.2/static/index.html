@@ -19,36 +19,40 @@
         <div class="container">
         </div>
   </header>
-  <div class="col-sm-6 col-md-6 col-lg-6" style="padding-left: 100px;">
-    <h1>Historical Data</h1>
-    <table class="table">
-      <thead class="table-head-color">
-        <tr>
-          <th scope="col">Value</th>
-          <th scope="col">Type</th>
-          <th scope="col">Sub-Type</th>
-          <th scope="col">Unit</th>
-          <th scope="col">Time</th>
-          <th scope="col">Place</th>
-        </tr>
-      </thead>
-      <tbody id='data'></tbody>
-    </table>
+  <div class="col-sm-6 col-md-6 col-lg-6" style="padding-left: 50px;">
+    <div class="table-container">
+      <h1>Historical Data</h1>
+      <table class="table">
+        <thead class="table-head-color">
+          <tr>
+            <th scope="col">Value</th>
+            <th scope="col">Type</th>
+            <th scope="col">Sub-Type</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Time</th>
+            <th scope="col">Place</th>
+          </tr>
+        </thead>
+        <tbody id='data'></tbody>
+      </table>
+    </div>
     </br>
-    <h1>Weather Forecast</h1>
-    <table class="table">
-      <thead class="table-head-color">
-        <tr>
-          <th scope="col">From</th>
-          <th scope="col">To</th>
-          <th scope="col">Type</th>
-          <th scope="col">Unit</th>
-          <th scope="col">Time</th>
-          <th scope="col">Place</th>
-        </tr>
-      </thead>
-      <tbody id='forecast'></tbody>
-    </table>
+    <div class="table-container">
+      <h1>Weather Forecast</h1>
+      <table class="table">
+        <thead class="table-head-color">
+          <tr>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Type</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Time</th>
+            <th scope="col">Place</th>
+          </tr>
+        </thead>
+        <tbody id='forecast'></tbody>
+      </table>
+    </div>
   </div>
 
 
@@ -59,7 +63,7 @@
           <h2>Temperature</h2>
           <h3>Minimum</h3>
           <h4>Last 5 days</h4>
-          <h1 id="minTemp"></h1>
+          <h1><span id="minTemp"></span><span>°C</span></h1>
           <div class="sky">
             <div class="sun"></div>
             <div class="cloud">
@@ -75,7 +79,7 @@
           <h2>Temperature</h2>
           <h3>Maximum</h3>
           <h4>Last 5 days</h4>
-          <h1 id="maxTemp"></h1>
+          <h1><span id="maxTemp"></span><span>°C</span></h1>
           <div class="sky">
             <div class="sun"></div>
             <div class="cloud">
@@ -93,7 +97,7 @@
           <h2>Precipitation</h2>
           <h3>Total</h3>
           <h4>Last 5 days</h4>
-          <h1 id="totalPrec"></h1>
+          <h1><span id="totalPrec"></span><span> mm</span></h1>
           <div class="sky">
             <div class="sun"></div>
             <div class="cloud">
@@ -109,7 +113,7 @@
           <h2>Wind Speed</h2>
           <h3>Average</h3>
           <h4>Last 5 days</h4>
-          <h1 id="speed"></h1>
+          <h1><span id="speed"></span><span> m/s</h1>
           <div class="sky">
             <div class="sun"></div>
             <div class="cloud">
@@ -143,7 +147,7 @@
           <h2>Cloud Coverage</h2>
           <h3>Average</h3>
           <h4>Last 5 days</h4>
-          <h1 id="clouds"></h1>
+          <h1><span id="clouds"></span><span> %</h1>
           <div class="sky">
             <div class="sun"></div>
             <div class="cloud">

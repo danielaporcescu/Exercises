@@ -73,12 +73,16 @@ function init(data) {
   );
   totalPrecipitationContainer.innerHTML = totalPrecipitation(
     getDataForLastNDaysForType(data, 5, "precipitation")
-  );
+  ).toFixed(2);
   averageWindSpeedContainer.innerHTML = averageWindSpeed(
     getDataForLastNDaysForType(data, 5, "wind speed")
+  ).toFixed(2);;
+  directionContainer.innerHTML = dominantWindDirection(
+    getDataForLastNDaysForType(data, 5, "wind speed")
   );
-  directionContainer.innerHTML = dominantWindDirection(getDataForLastNDaysForType(data, 5, "wind speed"));
-  cloudsContainer.innerHTML = averageCloudCoverage(getDataForLastNDaysForType(data, 5, "cloud coverage"))
+  cloudsContainer.innerHTML = averageCloudCoverage(
+    getDataForLastNDaysForType(data, 5, "cloud coverage")
+  ).toFixed(2);;
 }
 
 function renderHTMLForForecast(data) {
