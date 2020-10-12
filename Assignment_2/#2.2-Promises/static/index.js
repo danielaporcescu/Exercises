@@ -40,6 +40,24 @@ request2.onload = function () {
 request2.open("GET", "http://localhost:8080/forecast");
 request2.send();
 
+
+const fetchPromise = fetch("http://localhost:8080/data");
+fetchPromise
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+    table.innerHTML = tableRenderer(lastDataOfEachType(data));
+    minTemp.innerHTML = minTempLast5(data);
+    maxTemp.innerHTML = maxTempLast5(data);
+    totPrec.innerHTML = totalPrecLast5(data);
+    avgWind.innerHTML = averageWindSpeedLast5(data);
+    findMostFrequentWindDirection(data);
+    findAverageCloudCoverage(data);
+  });
+
+
 function renderHTMLForData(data) {
   var filtered = latestMeasurements(data);
   weatherContainer.innerHTML = filtered
