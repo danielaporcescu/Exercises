@@ -57,6 +57,8 @@ fetchPromise
     findAverageCloudCoverage(data);
   });
 
+  
+
 
 function renderHTMLForData(data) {
   var filtered = latestMeasurements(data);
