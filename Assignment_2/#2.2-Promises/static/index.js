@@ -1,3 +1,36 @@
+// const request1 = new XMLHttpRequest();
+// request1.onload = function () {
+//   if (this.status === 200) {
+//     try {
+//       const reqObj1 = JSON.parse(request1.responseText);
+//       renderHTMLForData(reqObj1);
+//       init(reqObj1);
+//     } catch (e) {
+//       console.warn("Error in JSON. Could not parse!");
+//     }
+//   } else {
+//     console.warn("Did not receive 200 OK from response");
+//   }
+// };
+// request1.open("GET", "http://localhost:8080/data");
+// request1.send();
+
+// const request2 = new XMLHttpRequest();
+// request2.onload = function () {
+//   if (this.status === 200) {
+//     try {
+//       const reqObj2 = JSON.parse(request2.responseText);
+//       renderHTMLForForecast(reqObj2);
+//     } catch (e) {
+//       console.warn("Error in JSON. Could not parse!");
+//     }
+//   } else {
+//     console.warn("Did not receive 200 OK from response");
+//   }
+// };
+// request2.open("GET", "http://localhost:8080/forecast");
+// request2.send();
+
 var weatherContainer = document.getElementById("data");
 var forecastContainer = document.getElementById("forecast");
 var minTempContainer = document.getElementById("minTemp");
@@ -7,60 +40,50 @@ var averageWindSpeedContainer = document.getElementById("speed");
 var directionContainer = document.getElementById("direction");
 var cloudsContainer = document.getElementById("clouds");
 
-const request1 = new XMLHttpRequest();
-request1.onload = function () {
-  if (this.status === 200) {
-    try {
-      const reqObj1 = JSON.parse(request1.responseText);
-      renderHTMLForData(reqObj1);
-      init(reqObj1);
-    } catch (e) {
-      console.warn("Error in JSON. Could not parse!");
-    }
-  } else {
-    console.warn("Did not receive 200 OK from response");
-  }
-};
-request1.open("GET", "http://localhost:8080/data");
-request1.send();
+try{
 
-const request2 = new XMLHttpRequest();
-request2.onload = function () {
-  if (this.status === 200) {
-    try {
-      const reqObj2 = JSON.parse(request2.responseText);
-      renderHTMLForForecast(reqObj2);
-    } catch (e) {
-      console.warn("Error in JSON. Could not parse!");
-    }
-  } else {
-    console.warn("Did not receive 200 OK from response");
-  }
-};
-request2.open("GET", "http://localhost:8080/forecast");
-request2.send();
+  const fetchPromise = fetch("http://localhost:8080/data");
+  fetchPromise
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      init(data);
+    });
+}
+    // weatherContainer.innerHTML = tableRenderer(lastDataOfEachType(data));
+    // minTempContainer.innerHTML = minTempLast5(data);
+    // maxTempContainer.innerHTML = maxTempLast5(data);
+    // totalPrecipitationContainer.innerHTML = totalPrecLast5(data);
+    // averageWindSpeedContainer.innerHTML = averageWindSpeedLast5(data);
+    // findMostFrequentWindDirection(data);
+    // findAverageCloudCoverage(data);
 
+// function renderHTMLForData(data) {
+//   var filtered = latestMeasurements(data);
+//   weatherContainer.innerHTML = filtered
+//     .map(
+//       (x) =>
+//         `<tr>
+//   <td>${x.value}</td>
+//   <td>${x.type}</td>
+//   <td>${
+//     x.direction ? x.direction : x.precipitation_type ? x.precipitation_type : ""
+//   }</td>
+//   <td>${x.unit}</td>
+//   <td>${x.time}</td>
+//   <td>${x.place}</td>
+//     </tr>`
+//     )
+//     .join("");
+// }
+catch(e)
+{
+  console.log(e);
+}
 
-const fetchPromise = fetch("http://localhost:8080/data");
-fetchPromise
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data);
-    table.innerHTML = tableRenderer(lastDataOfEachType(data));
-    minTemp.innerHTML = minTempLast5(data);
-    maxTemp.innerHTML = maxTempLast5(data);
-    totPrec.innerHTML = totalPrecLast5(data);
-    avgWind.innerHTML = averageWindSpeedLast5(data);
-    findMostFrequentWindDirection(data);
-    findAverageCloudCoverage(data);
-  });
-
-  
-
-
-function renderHTMLForData(data) {
+function init(data) {
   var filtered = latestMeasurements(data);
   weatherContainer.innerHTML = filtered
     .map(
@@ -77,9 +100,6 @@ function renderHTMLForData(data) {
     </tr>`
     )
     .join("");
-}
-
-function init(data) {
   minTempContainer.innerHTML = lowestTemperatureValue(
     getDataForLastNDaysForType(data, 5, "temperature")
   );
