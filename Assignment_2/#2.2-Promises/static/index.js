@@ -7,28 +7,27 @@ var averageWindSpeedContainer = document.getElementById("speed");
 var directionContainer = document.getElementById("direction");
 var cloudsContainer = document.getElementById("clouds");
 
+const fetchPromiseData = fetch("http://localhost:8080/data");
+fetchPromiseData
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+    renderHTMLForData(data);
+  });
 
-  const fetchPromiseData = fetch("http://localhost:8080/data");
-  fetchPromiseData
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      init(data);
-    });
+const fetchPromiseForecast = fetch("http://localhost:8080/forecast");
+fetchPromiseForecast
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+    renderHTMLForForecast(data);
+  });
 
-    const fetchPromiseForecast = fetch("http://localhost:8080/forecast");
-    fetchPromiseForecast
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      renderHTMLForForecast(data);
-    });
-
-function init(data) {
+function renderHTMLForData(data) {
   var filtered = latestMeasurements(data);
   weatherContainer.innerHTML = filtered
     .map(
@@ -45,21 +44,27 @@ function init(data) {
     </tr>`
     )
     .join("");
+
   minTempContainer.innerHTML = lowestTemperatureValue(
     getDataForLastNDaysForType(data, 5, "temperature")
   );
+
   maxTempContainer.innerHTML = highestTemperatureValue(
     getDataForLastNDaysForType(data, 5, "temperature")
   );
+
   totalPrecipitationContainer.innerHTML = totalPrecipitation(
     getDataForLastNDaysForType(data, 5, "precipitation")
   ).toFixed(2);
+
   averageWindSpeedContainer.innerHTML = averageWindSpeed(
     getDataForLastNDaysForType(data, 5, "wind speed")
   ).toFixed(2);
+
   directionContainer.innerHTML = dominantWindDirection(
     getDataForLastNDaysForType(data, 5, "wind speed")
   );
+
   cloudsContainer.innerHTML = averageCloudCoverage(
     getDataForLastNDaysForType(data, 5, "cloud coverage")
   ).toFixed(2);
