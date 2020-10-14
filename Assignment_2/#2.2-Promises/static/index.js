@@ -41,8 +41,8 @@ var directionContainer = document.getElementById("direction");
 var cloudsContainer = document.getElementById("clouds");
 
 
-  const fetchPromise = await fetch("http://localhost:8080/data");
-  fetchPromise
+  const fetchPromiseData = fetch("http://localhost:8080/data");
+  fetchPromiseData
     .then((response) => {
       return response.json();
     })
@@ -51,6 +51,15 @@ var cloudsContainer = document.getElementById("clouds");
       init(data);
     });
 
+    const fetchPromiseForecast = fetch("http://localhost:8080/forecast");
+    fetchPromiseForecast
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      renderHTMLForForecast(data);
+    });
   // weatherContainer.innerHTML = tableRenderer(lastDataOfEachType(data));
     // minTempContainer.innerHTML = minTempLast5(data);
     // maxTempContainer.innerHTML = maxTempLast5(data);
