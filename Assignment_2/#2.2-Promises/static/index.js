@@ -40,9 +40,8 @@ var averageWindSpeedContainer = document.getElementById("speed");
 var directionContainer = document.getElementById("direction");
 var cloudsContainer = document.getElementById("clouds");
 
-try{
 
-  const fetchPromise = fetch("http://localhost:8080/data");
+  const fetchPromise = await fetch("http://localhost:8080/data");
   fetchPromise
     .then((response) => {
       return response.json();
@@ -51,8 +50,8 @@ try{
       console.log(data);
       init(data);
     });
-}
-    // weatherContainer.innerHTML = tableRenderer(lastDataOfEachType(data));
+
+  // weatherContainer.innerHTML = tableRenderer(lastDataOfEachType(data));
     // minTempContainer.innerHTML = minTempLast5(data);
     // maxTempContainer.innerHTML = maxTempLast5(data);
     // totalPrecipitationContainer.innerHTML = totalPrecLast5(data);
@@ -78,10 +77,6 @@ try{
 //     )
 //     .join("");
 // }
-catch(e)
-{
-  console.log(e);
-}
 
 function init(data) {
   var filtered = latestMeasurements(data);
