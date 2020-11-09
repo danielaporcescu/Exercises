@@ -134,8 +134,8 @@ function predictions24Hours(data) {
   let next24Hours = next_24_hours(new Date(Date.now()));
   var filtered = data.filter(
     (x) =>
-      new Date(x.time).toLocaleString() >= next24Hours[0].toLocaleString() &&
-      new Date(x.time).toLocaleString() <= next24Hours[23].toLocaleString()
+      new Date(x.time) >= next24Hours[0] &&
+      new Date(x.time) <= next24Hours[23]
   );
   return filtered;
 }
