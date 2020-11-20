@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "controller.js",
+  "main": "index.js",
   "dependencies": {
     "@angular/core": "^10.2.3",
     "body-parser": "^1.18.3",
