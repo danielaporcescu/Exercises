@@ -1,0 +1,236 @@
+<!--identifier for an angularjs app-->
+<html ng-app='WeatherApp'>
+
+<head>
+  <base href="/">
+  <!--import angularjs library, bootstrap, styles.css and components.js-->
+  <script type='module'>
+    import "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"
+    import './components.js'
+  </script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<!--reference the module.controller('WeatherController') from components.js-->
+
+<body ng-controller="WeatherController">
+
+  <nav class="navbar navbar-dark primary-color">
+    <a class="navbar-brand" href="#">Link</a>
+  </nav>
+  <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
+    <div class="navbar-header">
+      <div class="container">
+        <img alt="Brand" src="sun.png" style="float: left;margin-left: 100px ;" width='40' height='40'>
+        <a href="/" class="navbar-brand">Weather Data</a>
+  </header>
+
+  <div class="col-sm-6 col-md-6 col-lg-6" style="padding-left: 50px;">
+    <h3>Report historical data</h3>
+    <!--ng-model - binds values to $scope using two way data binding-->
+    <div style="padding-bottom: 25px;">
+      <!-- value -->
+      <input type="number" min="-10" max="100" placeholder="Value" ng-model="value">
+      <!-- unit -->
+      <input type="text" name="unit" list="units" placeholder="Unit" ng-model="unit">
+      <datalist id="units">
+        <option value="C"></option>
+        <option value="mm"></option>
+        <option value="m/s"></option>
+        <option value="%"></option>
+      </datalist>
+      <!-- type -->
+      <input type="text" name="type" list="types" placeholder="Type" ng-model="type">
+      <datalist id="types">
+        <option value="temperature"></option>
+        <option value="precipitation"></option>
+        <option value="wind speed"></option>
+        <option value="cloud coverage"></option>
+      </datalist>
+      <!-- time -->
+      <input type="datetime-local" id="time" placeholder="Time" ng-model="time">
+      <!-- place -->
+      <input class="type-3" type="text" name="city" list="cities" placeholder="Place" ng-model="place">
+      <datalist id="cities">
+        <option value="Horsens"></option>
+        <option value="Aarhus"></option>
+        <option value="Copenhagen"></option>
+      </datalist>
+      <!-- precipitation types -->
+      <input type="text" name="precipitation" list="precipitationTypes" placeholder="Precipitation Type"
+        ng-model="precipitation_type">
+      <datalist id="precipitationTypes">
+        <option value="rain"></option>
+        <option value="sleet"></option>
+        <option value="hail"></option>
+        <option value="snow"></option>
+      </datalist>
+      <!-- wind directions -->
+      <input type="text" name="direction" list="directions" placeholder="Wind direction" ng-model="direction">
+      <datalist id="directions">
+        <option value="North"></option>
+        <option value="Northeast"></option>
+        <option value="East"></option>
+        <option value="Southeast"></option>
+        <option value="South"></option>
+        <option value="Southwest"></option>
+        <option value="West"></option>
+        <option value="Northwest"></option>
+      </datalist>
+      <br>
+      <br>
+      <button type="submit" form="dataForm" value="Submit" ng-click='addHistoricalData()'>Submit</button>
+      <input style="border-bottom: none; color: red; width: auto; padding-left: 15px;" type="text" readonly ng-model="result">
+    </div>
+
+    <h3>Filter weather data by date interval</h3>
+    <div style="padding-bottom: 50px;">
+      <input type="datetime-local" id="from_date">
+      <input type="datetime-local" id="to_date">
+      <!--on button click execute filterInterval-->
+      <button ng-click='filterInterval()'>Filter</button>
+    </div>
+
+    <div class="dropdown" style="padding-bottom: 25px;">
+      <button type="button" data-toggle="dropdown">Select City
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <!-- showData("") - displays data for all cities -->
+        <li value="None" ng-click='showData("")'><a href="#">All</a></li>
+        <li value="Aarhus" ng-click='showData("Aarhus")'><a href="#">Aarhus</a></li>
+        <li value="Copenhagen" ng-click='showData("Copenhagen")'><a href="#">Copenhagen</a></li>
+        <li value="Horsens" ng-click='showData("Horsens")'><a href="#">Horsens</a></li>
+      </ul>
+    </div>
+
+    <div class="table-container">
+      <h1>Weather Data</h1>
+      <table class="table">
+        <thead class="table-head-color">
+          <tr>
+            <th scope="col">Value</th>
+            <th scope="col">Type</th>
+            <!-- <th scope="col">Precipitation type</th>
+            <th scope="col">Wind direction</th> -->
+            <th scope="col">Unit</th>
+            <th scope="col">Time</th>
+            <th scope="col">Place</th>
+          </tr>
+        </thead>
+        <!--ng-repeat - as a for loop displaying relevant fields-->
+        <tbody ng-repeat="d in data">
+          <tr>
+            <td>{{d.value}}</td>
+            <td>{{d.type}}</td>
+            <!-- ng-if to display data only if it exists
+            <span ng-if="d.precipitation_type">
+              <td>{{d.precipitation_type}}</td>
+            </span>
+            <span ng-if="d.direction">
+              <td>{{d.direction}}</td>
+            </span> -->
+            <td>{{d.unit}}</td>
+            <td>{{d.time}}</td>
+            <td>{{d.place}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="col-sm-6 col-md-6 col-lg-6" style="padding-left: 50px;">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <h3>Temperature</h3>
+          <h4>Minimum - last 5 days</h4>
+          <h2><span id="minTemp"></span>{{minT}}<span>°C</span></h2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Temperature</h2>
+          <h4>Maximum - last 5 days</h4>
+          <h2><span id="maxTemp"></span>{{maxT}}<span> °C</span></h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Precipitation</h2>
+          <h4>Total - last 5 days</h4>
+          <h2><span id="totalPrec"></span>{{totalP}}<span> mm</span></h2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Wind Speed</h2>
+          <h4>Average - last 5 days</h4>
+          <h2><span id="speed">{{averageW}}</span><span> m/s</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Wind Direction</h2>
+          <h4>Dominant - last 5 days</h4>
+          <h2 id="direction">{{dominantW}}</h2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <h2>Cloud Coverage</h2>
+          <h4>Average - last 5 days</h4>
+          <h2><span id="clouds">{{averageC}}</span><span> %</h2>
+        </div>
+      </div>
+    </div>
+
+    </br>
+
+    <div class="table-container">
+      <h1>Wather forecast</h1>
+      <table class="table">
+        <thead class="table-head-color">
+          <tr>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Type</th>
+            <!-- <th scope="col">Precipitation type</th>
+              <th scope="col">Wind direction</th> -->
+            <th scope="col">Unit</th>
+            <th scope="col">Time</th>
+            <th scope="col">Place</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="f in forecast">
+          <tr>
+            <td>{{f.from}}</td>
+            <td>{{f.to}}</td>
+            <td>{{f.type}}</td>
+            <!-- ng-if to display data only if it exists
+              <span ng-if="d.precipitation_type">
+                <td>{{f.precipitation_types}}</td>
+              </span>
+              <span ng-if="d.direction">
+                <td>{{f.directions}}</td>
+              </span> -->
+            <td>{{f.unit}}</td>
+            <td>{{f.time}}</td>
+            <td>{{f.place}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script type='module' src='components.js'></script>
+</body>
+
+</html>

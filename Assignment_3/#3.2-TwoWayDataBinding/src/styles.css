@@ -1,0 +1,102 @@
+@import "https://fonts.googleapis.com/css?family=Montserrat|Open+Sans";
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Montserrat", sans-serif;
+  position: relative;
+}
+
+h2,h3 {
+  font-size: 1.70em;
+  font-weight: bold;
+}
+
+h4 {
+  color: rebeccapurple;
+  font-weight: 300;
+  font-weight: bold;
+}
+
+span {
+  margin-left: 0;
+  font-weight: bold;
+}
+
+table {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  border-collapse: collapse;
+  width: 100%;
+}
+.table-container {
+  background-color: white;
+  margin: 0 auto;
+  padding: 5px 30px;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+  border-collapse: collapse;
+}
+
+.navbar-brand {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+}
+
+.navbar-inverse {
+  background-color: #0caadc;
+  border-color: #0caadc;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #ffffff;
+}
+
+.navbar-inverse .navbar-brand:hover {
+  color: gold;
+}
+
+.table-head-color {
+  background-color: #0caadc !important;
+}
+
+.card {
+  margin: 0 auto;
+  margin-bottom: 5%;
+  padding: 5px 30px;
+  width: auto;
+  height: auto;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+input {
+  border: none;
+  border-bottom: 2px solid #0caadc;
+  width: 25%;
+  padding: 10px 10px 10px 0;
+  margin-right: 15px;
+}
+button {
+  color: #494949 !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 2px solid #494949 !important;
+  /* display: inline-block; */
+  transition: all 0.4s ease 0s;
+}
+
+button:hover {
+  color: #ffffff !important;
+  background: #f6b93b;
+  border-color: #f6b93b !important;
+  transition: all 0.4s ease 0s;
+}
