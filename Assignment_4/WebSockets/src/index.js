@@ -2,6 +2,8 @@ let ws = new WebSocket("ws://localhost:8090/warnings");
 const warningsSinceUrl = "http://localhost:8080/warnings/since/";
 var warningData = [];
 var warningsSince = [];
+var warningTableElement = document.getElementById("warningsTable");
+var warningTableBodyElement = document.getElementById("warningSince");
 
 //UNSUBSCRIBE to warnings
 window.unSubscribeToWarnings = () => {
@@ -23,9 +25,9 @@ window.subscribeToWarnings = () => {
   };
   ws.onmessage = (message) => {
     const warns = JSON.parse(message.data);
-    window.warningData.push(...warns.warnings);
+    warningData = [...warns.warnings];
     console.log("Listening to incoming data...");
-    printWarnings(window.warningData);
+    printWarnings(warningData);
   };
 };
 
@@ -36,15 +38,19 @@ function getWarningsSince() {
     var p = document.getElementById("onoff");
     p.remove();
   }
+
+  while (warningTableBodyElement.childNodes.length > 0) {
+    warningTableBodyElement.removeChild(warningTableBodyElement.childNodes[0]);
+  }
+
   $.get(warningsSinceUrl + getFromTime(), (data) => {
     warningsSince = data;
 
-    let htmlElement = document.getElementById("warningSince");
     warningsSince.warnings.map((x) => {
       let tr = document.createElement("tr");
       tr.setAttribute("id", x.id);
       tr.innerHTML = rowRenderer(x);
-      htmlElement.appendChild(tr);
+      warningTableBodyElement.appendChild(tr);
     });
   });
 }
@@ -62,32 +68,26 @@ function onSwitchClick() {
 //ON CHANGE FOR SEVERITY
 function changeSeverity() {
   let severity = getSeverity();
+  while (warningTableElement.childNodes.length > 0) {
+    warningTableElement.removeChild(warningTableElement.childNodes[0]);
+  }
   if (severity === "7") {
-    // subscribeToWarnings();
-    printWarnings(window.warningData);
+    printWarnings(warningData);
   } else {
     unSubscribeToWarnings();
-    var warningsTable = document.getElementById("warningsTable");
-    // console.log(warningsTable);
-    while (warningsTable.childNodes.length > 0) {
-      warningsTable.removeChild(warningsTable.childNodes[0]);
-    }
-    console.log(window.warningData);
+    console.log(warningData);
 
-    for (let i = 0; i < window.warningData.length - 1; i++) {
+    for (let i = 0; i < warningData.length - 1; i++) {
       if (
-        window.warningData[i].prediction != null &&
-        window.warningData[i].severity == severity
+        warningData[i].prediction != null &&
+        warningData[i].severity == severity
       ) {
-        // console.log(warningData[i].severity);
-        // console.log(severity);
-
         var tr = document.createElement("tr");
         tr.setAttribute("id", warningData[i].id);
 
         tr.innerHTML = rowRenderer(warningData[i]);
 
-        document.getElementById("warningsTable").appendChild(tr);
+        warningTableElement.appendChild(tr);
       }
     }
   }
@@ -95,25 +95,18 @@ function changeSeverity() {
 
 //PRINT TO HTML
 function printWarnings(warns) {
+  while (warningTableElement.childNodes.length > 0) {
+    warningTableElement.removeChild(warningTableElement.childNodes[0]);
+  }
   if (warns != null) {
-    // warningData.push(warns);
-    // console.log(warningData)
-    var id = document.getElementById(warns.id);
-    if (id != null) id.remove();
-    var tr = document.createElement("tr");
-    tr.setAttribute("id", warns.id);
-
     for (let i = 0; i < warns.length - 1; i++) {
       if (warns[i].prediction != null) {
-        // console.log(warningData[i].severity);
-        // console.log(severity);
-
         var tr = document.createElement("tr");
         tr.setAttribute("id", warns[i].id);
 
         tr.innerHTML = rowRenderer(warns[i]);
 
-        document.getElementById("warningsTable").appendChild(tr);
+        warningTableElement.appendChild(tr);
       }
     }
   }
