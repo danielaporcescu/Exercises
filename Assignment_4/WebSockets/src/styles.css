@@ -72,7 +72,7 @@ input {
   padding: 10px 10px 10px 0;
   margin-right: 15px;
 }
-select {
+select, button {
   color: #494949 !important;
   text-transform: uppercase;
   text-decoration: none;
@@ -83,7 +83,7 @@ select {
   transition: all 0.4s ease 0s;
 }
 
-select:hover {
+select:hover, button:hover {
   color: #ffffff !important;
   background: #f6b93b;
   border-color: black !important;
