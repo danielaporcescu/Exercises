@@ -2,15 +2,14 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="module">
         'use strict';
         import './index.js';
     </script>
-    <script src="./index.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -31,8 +30,8 @@
         </label>
         <div style="padding-bottom: 30px;">
             <h3>Choose minimum severity level </h3>
-            <select class="bootstrap-select" id="severity">
-                <option value="9" selected="selected">All severities</option>
+            <select class="bootstrap-select" id="severity" onchange="changeSeverity()">
+                <option value="7" selected="selected">All severities</option>
                 <option value="1">Severity 1</option>
                 <option value="2">Severity 2</option>
                 <option value="3">Severity 3</option>
@@ -90,5 +89,7 @@
         </div>
     </div>
 </body>
+
+<script src="./index.js"></script>
 
 </html>
