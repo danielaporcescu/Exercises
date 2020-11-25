@@ -76,8 +76,8 @@ function changeSeverity() {
     unSubscribeToWarnings();
     var warningsTable = document.getElementById("warningsTable");
     // console.log(warningsTable);
-    while (warningsTable.childNodes.length != 2) {
-      warningsTable.removeChild(warningsTable.childNodes[2]);
+    while (warningsTable.childNodes.length > 0) {
+      warningsTable.removeChild(warningsTable.childNodes[0]);
     }
     console.log(warningData);
 
