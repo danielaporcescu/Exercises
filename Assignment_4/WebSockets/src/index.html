@@ -8,6 +8,7 @@
         'use strict';
         import './index.js';
     </script>
+    <script src="./index.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -25,7 +26,7 @@
     <div class="col-sm-12 col-md-12 col-lg-12" style="padding-left: 50px;">
         <h3 id="onoffWarnings">Turn warnings ON or OFF: </h3>
         <label class="switch">
-            <input type="checkbox" id="toggle" checked>
+            <input type="checkbox" id="toggle" onclick="onSwitchClick();" checked>
             <span class="slider round"></span>
         </label>
         <div style="padding-bottom: 30px;">
@@ -40,7 +41,7 @@
                 <option value="6">Severity 6</option>
             </select>
         </div>
-        <h3 id="warningsTable"></h3>
+        <!-- <h3 id="warningsTable"></h3> -->
         <div class="table-container">
             <h1>Warnings</h1>
             <table class="table">
@@ -50,20 +51,22 @@
                         <th scope="col">Severity</th>
                         <th scope="col">From</th>
                         <th scope="col">To</th>
-                        <th scope="col">precipitation_types</th>
                         <th scope="col">type</th>
                         <th scope="col">unit</th>
                         <th scope="col">time</th>
                         <th scope="col">place</th>
+                        <th scope="col">precipitation_types</th>
                     </tr>
                 </thead>
-                <tbody id='warning'>
+                <tbody id='warningsTable'>
                 </tbody>
             </table>
         </div>
 
         <h3 id="warningsSinceTable">
-            <div>Changes in warnings since last update <input type="datetime-local" id="myLocalDate"></div>
+            <div>Changes in warnings since last update <input type="datetime-local" id="myLocalDate">
+                <button onclick="getWarningsSince()">Get warnings since</button>
+            </div>
         </h3>
         <div class="table-container">
             <h1>Warnings since last update</h1>
