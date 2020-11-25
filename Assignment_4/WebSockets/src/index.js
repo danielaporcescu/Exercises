@@ -23,8 +23,9 @@ window.subscribeToWarnings = () => {
   };
   ws.onmessage = (message) => {
     const warns = JSON.parse(message.data);
+    window.warningData.push(...warns.warnings);
     console.log("Listening to incoming data...");
-    printToTable(warns);
+    printWarnings(window.warningData);
   };
 };
 
@@ -38,28 +39,19 @@ function getWarningsSince() {
   $.get(warningsSinceUrl + getFromTime(), (data) => {
     warningsSince = data;
 
-    document.getElementById("warningSince").innerHTML = warningsSince.warnings
-      .map(
-        (x) =>
-          `<tr>
-      <td>${x.id}</td>
-      <td>${x.severity}</td>
-      <td>${x.prediction.from}</td>
-      <td>${x.prediction.to}</td>
-      <td>${x.prediction.type}</td>
-      <td>${x.prediction.unit}</td>
-      <td>${x.prediction.time}</td>
-      <td>${x.prediction.place}</td>
-      <td>${x.prediction.precipitation_types || ""}</td>
-      </tr>`
-      )
-      .join("");
+    let htmlElement = document.getElementById("warningSince");
+    warningsSince.warnings.map((x) => {
+      let tr = document.createElement("tr");
+      tr.setAttribute("id", x.id);
+      tr.innerHTML = rowRenderer(x);
+      htmlElement.appendChild(tr);
+    });
   });
 }
 
 //TOGGLE BUTTON ONN/OFF to unsubscribe
 function onSwitchClick() {
-  var checked = document.getElementById("toggle").checked;
+  let checked = document.getElementById("toggle").checked;
   if (checked) {
     subscribeToWarnings();
   } else {
@@ -69,9 +61,10 @@ function onSwitchClick() {
 
 //ON CHANGE FOR SEVERITY
 function changeSeverity() {
-  var severity = getSeverity();
+  let severity = getSeverity();
   if (severity === "7") {
-    subscribeToWarnings();
+    // subscribeToWarnings();
+    printWarnings(window.warningData);
   } else {
     unSubscribeToWarnings();
     var warningsTable = document.getElementById("warningsTable");
@@ -79,12 +72,12 @@ function changeSeverity() {
     while (warningsTable.childNodes.length > 0) {
       warningsTable.removeChild(warningsTable.childNodes[0]);
     }
-    console.log(warningData);
+    console.log(window.warningData);
 
-    for (let i = 0; i < warningData.length - 1; i++) {
+    for (let i = 0; i < window.warningData.length - 1; i++) {
       if (
-        warningData[i].prediction != null &&
-        warningData[i].severity == severity
+        window.warningData[i].prediction != null &&
+        window.warningData[i].severity == severity
       ) {
         // console.log(warningData[i].severity);
         // console.log(severity);
@@ -92,31 +85,11 @@ function changeSeverity() {
         var tr = document.createElement("tr");
         tr.setAttribute("id", warningData[i].id);
 
-        tr.innerHTML = `<td>${warningData[i].id} </td>
-          <td>${warningData[i].severity} </td>
-          <td>${warningData[i].prediction.from} </td>
-          <td>${warningData[i].prediction.to} </td>
-          <td>${warningData[i].prediction.type} </td>
-          <td>${warningData[i].prediction.unit} </td>
-          <td>${warningData[i].prediction.time} </td>
-          <td>${warningData[i].prediction.place} </td>
-          <td>${warningData[i].prediction.precipitation_types || ""} </td>`;
+        tr.innerHTML = rowRenderer(warningData[i]);
 
         document.getElementById("warningsTable").appendChild(tr);
       }
     }
-  }
-}
-
-//PRINT THE TABLE
-function printToTable(warns) {
-  //console.log(warns);
-  if (warns.time != null) {
-    for (let warn of warns.warnings) {
-      printWarnings(warn);
-    }
-  } else {
-    printWarnings(warns);
   }
 }
 
@@ -130,20 +103,32 @@ function printWarnings(warns) {
     var tr = document.createElement("tr");
     tr.setAttribute("id", warns.id);
 
-    if (warns.prediction != null) {
-      tr.innerHTML = `<td>${warns.id}</td>
-        <td>${warns.severity}</td>
-        <td>${warns.prediction.from}</td>
-        <td>${warns.prediction.to}</td>
-        <td>${warns.prediction.type}</td>
-        <td>${warns.prediction.unit}</td>
-        <td>${warns.prediction.time}</td>
-        <td>${warns.prediction.place}</td>
-        <td>${warns.prediction.precipitation_types || ""}</td>`;
+    for (let i = 0; i < warns.length - 1; i++) {
+      if (warns[i].prediction != null) {
+        // console.log(warningData[i].severity);
+        // console.log(severity);
 
-      document.getElementById("warningsTable").appendChild(tr);
+        var tr = document.createElement("tr");
+        tr.setAttribute("id", warns[i].id);
+
+        tr.innerHTML = rowRenderer(warns[i]);
+
+        document.getElementById("warningsTable").appendChild(tr);
+      }
     }
   }
+}
+
+function rowRenderer(warning) {
+  return `<td>${warning.id} </td>
+  <td>${warning.severity} </td>
+  <td>${warning.prediction.from} </td>
+  <td>${warning.prediction.to} </td>
+  <td>${warning.prediction.type} </td>
+  <td>${warning.prediction.unit} </td>
+  <td>${warning.prediction.time} </td>
+  <td>${warning.prediction.place} </td>
+  <td>${warning.prediction.precipitation_types || ""} </td>`;
 }
 
 //GET MINIMAL SEVERITY
@@ -160,4 +145,4 @@ function getFromTime() {
   return localTime;
 }
 
-window.onload = subscribeToWarnings;
+window.onload = subscribeToWarnings();
