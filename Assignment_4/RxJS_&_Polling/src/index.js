@@ -18,13 +18,11 @@ var polledSubscriber = subscribeToPolledWarnings();
 document.getElementById("myLocalDate").defaultValue = "2019-11-20T11:00:00.000";
 const warningsSinceTime$ = ajax.getJSON(`${warningsSinceUrl}${getFromTime()}`);
 
-console.log(getFromTime());
 warningsSinceTime$.subscribe(
   (result) => {
     const filteredSinceWarnings = result.warnings.filter(
-      (warning) => warning.prediction.time >= getFromTime()
-    );
-    console.log(filteredSinceWarnings);
+      (warning) => warning.prediction.time >= getFromTime());
+
     document.getElementById("warningSince").innerHTML = filteredSinceWarnings
       .map(
         (x) =>
@@ -38,7 +36,6 @@ warningsSinceTime$.subscribe(
     <td>${x.prediction.unit}</td>
     <td>${x.prediction.time}</td>
     <td>${x.prediction.place}</td>
-
     </tr>`
       )
       .join("");
@@ -48,8 +45,6 @@ warningsSinceTime$.subscribe(
 );
 
 //TURN WARNINGS ON/OFF
-
-//TOGGLE BUTTON ONN/OFF to unsubscribe
 var checked$ = fromEvent(toggle, "change").pipe(map((e) => e.target.checked));
 checked$.subscribe((checked) => {
   unSubscribeToPolledWarnings(polledSubscriber);
@@ -60,21 +55,18 @@ checked$.subscribe((checked) => {
   }
 });
 
-//HELPER functions
-
-// SUBSCRIBE/UNSUBSCRIBE to warnings
+// UNSUBSCRIBE to warnings
 function unSubscribeToPolledWarnings(subscriber) {
   return subscriber.unsubscribe();
 }
 
+// SUBSCRIBE to warnings
 function subscribeToPolledWarnings() {
   return polledWarnings$.subscribe(
     (result) => {
       const filteredwarnings = result.warnings.filter(
         (warning) => warning.severity <= getSeverity()
       );
-
-      //printTime(JSON.stringify(result.time));
       printPolledWarnings(JSON.stringify(filteredwarnings), result.time);
     },
     (err) => console.log(`ERROR: ${err}`),
@@ -97,10 +89,8 @@ function printPolledWarnings(val, time) {
     <td>${x.prediction.unit}</td>
     <td>${x.prediction.time}</td>
     <td>${x.prediction.place}</td>
-
     </tr>`
-    )
-    .join("");
+    ).join("");
   document.getElementById("warning").append(time);
 }
 
