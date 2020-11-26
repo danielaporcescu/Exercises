@@ -32,7 +32,7 @@ window.subscribeToWarnings = () => {
 };
 
 //GET WARNINGS SINCE TIME
-document.getElementById("myLocalDate").defaultValue = "2019-11-25T13:00:00.000";
+document.getElementById("myLocalDate").defaultValue = "2020-11-25T13:00:00.000";
 function getWarningsSince() {
   if (document.getElementById("onoff") != null) {
     var p = document.getElementById("onoff");
