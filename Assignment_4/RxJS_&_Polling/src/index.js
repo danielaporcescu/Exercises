@@ -53,7 +53,7 @@ function subscribeToPolledWarnings() {
         let jsonWarnings = JSON.parse(JSON.stringify(result.warnings));
         printWarnings(jsonWarnings, "warning", result.time);
       } else {
-        // unSubscribeToPolledWarnings(polledSubscriber);
+        // unSubscribeToPolledWarnings();
         // for (let i = 0; i < result.warnings.length - 1; i++) {
           const filteredwarnings = result.warnings.filter(
             (warning) => warning.severity >= getSeverity()
@@ -62,15 +62,15 @@ function subscribeToPolledWarnings() {
             JSON.stringify(filteredwarnings)
           );
           printWarnings(jsonFilteredWarnings, "warning", result.time);
-        // }
-      }
+        }
+      // }
     },
     (err) => console.log(`ERROR: ${err}`),
     () => console.log("done")
   );
 }
 
-// PRINT to HTML
+// PRINT
 function printWarnings(array, element, time) {
   document.getElementById(element).innerHTML = array
     .map(
