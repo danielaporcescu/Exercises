@@ -21,24 +21,9 @@ const warningsSinceTime$ = ajax.getJSON(`${warningsSinceUrl}${getFromTime()}`);
 warningsSinceTime$.subscribe(
   (result) => {
     const filteredSinceWarnings = result.warnings.filter(
-      (warning) => warning.prediction.time >= getFromTime());
-
-    document.getElementById("warningSince").innerHTML = filteredSinceWarnings
-      .map(
-        (x) =>
-          `<tr>
-    <td>${x.id}</td>
-    <td>${x.severity}</td>
-    <td>${x.prediction.from}</td>
-    <td>${x.prediction.to}</td>
-    <td>${x.prediction.precipitation_types || ""}</td>
-    <td>${x.prediction.type}</td>
-    <td>${x.prediction.unit}</td>
-    <td>${x.prediction.time}</td>
-    <td>${x.prediction.place}</td>
-    </tr>`
-      )
-      .join("");
+      (warning) => warning.prediction.time >= getFromTime()
+    );
+    printWarnings(filteredSinceWarnings, "warningSince");
   },
   (err) => console.log(`ERROR: ${err}`),
   () => console.log("done")
@@ -64,19 +49,30 @@ function unSubscribeToPolledWarnings(subscriber) {
 function subscribeToPolledWarnings() {
   return polledWarnings$.subscribe(
     (result) => {
-      const filteredwarnings = result.warnings.filter(
-        (warning) => warning.severity <= getSeverity()
-      );
-      printPolledWarnings(JSON.stringify(filteredwarnings), result.time);
+      if (getSeverity() === "9") {
+        let jsonWarnings = JSON.parse(JSON.stringify(result.warnings));
+        printWarnings(jsonWarnings, "warning", result.time);
+      } else {
+        // unSubscribeToPolledWarnings(polledSubscriber);
+        // for (let i = 0; i < result.warnings.length - 1; i++) {
+          const filteredwarnings = result.warnings.filter(
+            (warning) => warning.severity >= getSeverity()
+          );
+          let jsonFilteredWarnings = JSON.parse(
+            JSON.stringify(filteredwarnings)
+          );
+          printWarnings(jsonFilteredWarnings, "warning", result.time);
+        // }
+      }
     },
     (err) => console.log(`ERROR: ${err}`),
     () => console.log("done")
   );
 }
 
-function printPolledWarnings(val, time) {
-  let array = JSON.parse(val);
-  document.getElementById("warning").innerHTML = array
+// PRINT to HTML
+function printWarnings(array, element, time) {
+  document.getElementById(element).innerHTML = array
     .map(
       (x) =>
         `<tr>
@@ -90,7 +86,8 @@ function printPolledWarnings(val, time) {
     <td>${x.prediction.time}</td>
     <td>${x.prediction.place}</td>
     </tr>`
-    ).join("");
+    )
+    .join("");
   document.getElementById("warning").append(time);
 }
 
