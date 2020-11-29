@@ -1,8 +1,4 @@
-import {
-  timer,
-  fromEvent,
-  interval,
-} from "https://dev.jspm.io/rxjs@6/_esm2015";
+import { fromEvent, interval } from "https://dev.jspm.io/rxjs@6/_esm2015";
 import { ajax } from "https://dev.jspm.io/rxjs@6/_esm2015/ajax";
 import { concatMap, map } from "https://dev.jspm.io/rxjs@6/_esm2015/operators";
 
@@ -53,17 +49,12 @@ function subscribeToPolledWarnings() {
         let jsonWarnings = JSON.parse(JSON.stringify(result.warnings));
         printWarnings(jsonWarnings, "warning", result.time);
       } else {
-        // unSubscribeToPolledWarnings();
-        // for (let i = 0; i < result.warnings.length - 1; i++) {
-          const filteredwarnings = result.warnings.filter(
-            (warning) => warning.severity >= getSeverity()
-          );
-          let jsonFilteredWarnings = JSON.parse(
-            JSON.stringify(filteredwarnings)
-          );
-          printWarnings(jsonFilteredWarnings, "warning", result.time);
-        }
-      // }
+        const filteredwarnings = result.warnings.filter(
+          (warning) => warning.severity >= getSeverity()
+        );
+        let jsonFilteredWarnings = JSON.parse(JSON.stringify(filteredwarnings));
+        printWarnings(jsonFilteredWarnings, "warning", result.time);
+      }
     },
     (err) => console.log(`ERROR: ${err}`),
     () => console.log("done")
